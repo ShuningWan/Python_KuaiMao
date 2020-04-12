@@ -295,6 +295,6 @@ if __name__ == '__main__':
 </html>
 
     '''
-    with open('快猫.html', 'w+' , encoding='utf-8')as f:
+    with open('快猫.html', 'a' , encoding='utf-8')as f:
         f.write(end_html + '\n')
 
