@@ -118,7 +118,7 @@ class PrpCrypt(object):
             }
             response = requests.post(url = self.video_url , data =  from_data , headers = self.headers)
             decrypt = json.loads(self.decrypt(response.text))['data']['video_info']
-            print(decrypt)#
+            #print(decrypt)#
             title = decrypt['title']
             pic = decrypt['cover']
             url = decrypt['normal_url'] # 普通接口
