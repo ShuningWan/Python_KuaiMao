@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2020/4/12 14:09
 # @Author  : 老飞机
-# @File    : 快猫.py
+# @File    : 快猫更新版.py
 # @Software: pycharm
 
 
 from Crypto.Cipher import AES
+import requests, hashlib, json
 from binascii import b2a_hex, a2b_hex
 from cryptography.hazmat.primitives import padding
-import requests, hashlib, json, jsonpath, re, codecs
 from cryptography.hazmat.primitives.ciphers import algorithms
 
 '''
@@ -93,7 +93,7 @@ class PrpCrypt(object):
                 decrypt = json.loads(self.decrypt(response.text))['data']['video_list']
                 if decrypt == []:
                     print('数据也是可能上限，当前页数：',data)
-                    return 
+                    return
                 else:
                     for ax in decrypt:
                         id = ax['id']
@@ -118,15 +118,14 @@ class PrpCrypt(object):
             }
             response = requests.post(url = self.video_url , data =  from_data , headers = self.headers)
             decrypt = json.loads(self.decrypt(response.text))['data']['video_info']
-            #print(decrypt)#
             title = decrypt['title']
             pic = decrypt['cover']
             url = decrypt['normal_url'] # 普通接口
             vip_url = decrypt['vip_url'] #vip接口
             xunlei = decrypt['thunder_download_link'] #迅雷
-    
+
             aggregate = '<li><h2>{}</h2>'.format(title) + '<a class="chain" href="{}">普通线路</a><a class="chain" href="{}">vip线路</a><a class="chain" href="{}">迅雷下载线路</a>'.format(url,vip_url,xunlei) + '<img src="{}"></li>'.format(pic)
-    
+
             print(aggregate)
             with open('快猫.html' , 'a', encoding='utf-8')as f:
                 f.write(aggregate+'\n')
